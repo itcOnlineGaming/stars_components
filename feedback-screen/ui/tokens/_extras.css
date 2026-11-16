@@ -1,0 +1,22 @@
+/*
+ * Tokens that tokens.json cannot hold, so they are written by hand.
+ * The generated files next to this one are overwritten by npm run tokens:build.
+ *
+ * A DTCG gradient is a list of colour stops with no angle, so the three gradients stay
+ * here, built from the colour roles so each follows the look and light or dark. They
+ * are for gamified decoration only (the designer's decision 9); every other fill is a
+ * flat role, and stylelint fails any other gradient.
+ *
+ * hero         a page's hero band or a journey's header: the accent, light to deep.
+ * celebration  a moment of reward: the XP bonus, the star burst. Text on it is on-reward.
+ * quest        a gamified card's frosted surface, a touch lighter at the top.
+ */
+:root {
+	--gradient-hero: linear-gradient(135deg, var(--color-accent-hover), var(--color-accent));
+	--gradient-celebration: linear-gradient(135deg, var(--color-reward-strong), var(--color-reward));
+	--gradient-quest: linear-gradient(
+		170deg,
+		color-mix(in srgb, var(--color-surface-raised) 92%, transparent),
+		color-mix(in srgb, var(--color-surface) 85%, transparent)
+	);
+}

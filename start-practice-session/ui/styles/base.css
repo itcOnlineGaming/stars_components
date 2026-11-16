@@ -1,0 +1,65 @@
+:root {
+	font-family: var(--font-sans);
+	font-size: var(--text-body-size);
+	line-height: var(--text-body-leading);
+	letter-spacing: var(--text-body-tracking);
+	color: var(--color-text-primary);
+	background-color: var(--color-surface);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+button.unstyled {
+	background: none;
+	border: none;
+	padding: var(--spacing-0);
+	margin: var(--spacing-0);
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+	text-align: inherit;
+}
+
+button.unstyled:disabled {
+	cursor: default;
+}
+
+/*
+ * The text styles (tokens.json, text-style) on the elements that carry them. Body text is
+ * the :root style above, which everything inherits. :where() keeps these at no
+ * specificity, so any component's own rule wins over them.
+ */
+:where(h1) {
+	font-size: var(--text-h1-size);
+	font-weight: var(--text-h1-weight);
+	line-height: var(--text-h1-leading);
+	letter-spacing: var(--text-h1-tracking);
+}
+
+:where(h2) {
+	font-size: var(--text-h2-size);
+	font-weight: var(--text-h2-weight);
+	line-height: var(--text-h2-leading);
+	letter-spacing: var(--text-h2-tracking);
+}
+
+:where(h3) {
+	font-size: var(--text-h3-size);
+	font-weight: var(--text-h3-weight);
+	line-height: var(--text-h3-leading);
+	letter-spacing: var(--text-h3-tracking);
+}
+
+:where(small) {
+	font-size: var(--text-body-sm-size);
+	line-height: var(--text-body-sm-leading);
+}
+
+/* A field's own label. One that wraps its control (a checkbox, a radio, a text box)
+   keeps the text around it, as the control inherits its font. */
+:where(label:not(:has(input, select, textarea))) {
+	font-size: var(--text-label-size);
+	font-weight: var(--text-label-weight);
+	line-height: var(--text-label-leading);
+	letter-spacing: var(--text-label-tracking);
+}

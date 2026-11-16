@@ -1,0 +1,21 @@
+/* Generated from tokens.json — do not edit */
+
+:root {
+	--container-xs: 20rem;
+	--container-sm: 40rem;
+	--container-md: 50rem;
+	--container-lg: 60rem;
+	--container-xl: 75rem;
+	--container-dialog: 30rem;
+	--column-min-sm: 11rem;
+	--column-min-md: 14rem;
+	--size-tap-target: 2.75rem;
+	--size-icon-xs: 1rem;
+	--size-icon-sm: 1.25rem;
+	--size-icon-md: 1.5rem;
+	--size-icon-lg: 2rem;
+	--size-icon-xl: 3rem;
+	--size-panel-sm: 10rem;
+	--size-panel-md: 15rem;
+	--size-panel-lg: 20rem;
+}

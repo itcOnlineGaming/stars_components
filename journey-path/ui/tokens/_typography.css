@@ -1,0 +1,63 @@
+/* Generated from tokens.json — do not edit */
+
+:root {
+	--font-sans: 'Nunito', system-ui, sans-serif;
+	--font-display: 'Lilita One', system-ui, sans-serif;
+	--font-mono: ui-monospace, 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+	--text-xs: 0.75rem;
+	--text-sm: 0.875rem;
+	--text-base: 1rem;
+	--text-lg: 1.125rem;
+	--text-xl: 1.25rem;
+	--text-2xl: 1.5rem;
+	--text-3xl: 1.875rem;
+	--text-4xl: 2.25rem;
+	--text-5xl: 3rem;
+	--text-6xl: 4rem;
+	--text-display-fluid: clamp(1.875rem, 1.5rem + 0.9375vw, 2.25rem);
+	--text-h1-fluid: clamp(1.5rem, 1.125rem + 0.9375vw, 1.875rem);
+	--font-normal: 400;
+	--font-medium: 500;
+	--font-semibold: 600;
+	--font-bold: 700;
+	--font-extrabold: 800;
+	--font-black: 900;
+	--leading-tight: 1.25;
+	--leading-normal: 1.5;
+}
+
+:root {
+	--text-display-size: var(--text-display-fluid);
+	--text-display-weight: var(--font-bold);
+	--text-display-leading: 1.1;
+	--text-display-tracking: -0.025em;
+	--text-h1-size: var(--text-h1-fluid);
+	--text-h1-weight: var(--font-bold);
+	--text-h1-leading: var(--leading-tight);
+	--text-h1-tracking: -0.025em;
+	--text-h2-size: var(--text-2xl);
+	--text-h2-weight: var(--font-semibold);
+	--text-h2-leading: var(--leading-tight);
+	--text-h2-tracking: 0em;
+	--text-h3-size: var(--text-xl);
+	--text-h3-weight: var(--font-semibold);
+	--text-h3-leading: var(--leading-tight);
+	--text-h3-tracking: 0em;
+	--text-body-size: var(--text-base);
+	--text-body-weight: var(--font-normal);
+	--text-body-leading: var(--leading-normal);
+	--text-body-tracking: 0em;
+	--text-body-sm-size: var(--text-sm);
+	--text-body-sm-weight: var(--font-normal);
+	--text-body-sm-leading: var(--leading-normal);
+	--text-body-sm-tracking: 0em;
+	--text-label-size: var(--text-sm);
+	--text-label-weight: var(--font-semibold);
+	--text-label-leading: var(--leading-tight);
+	--text-label-tracking: 0em;
+	--text-caption-size: var(--text-xs);
+	--text-caption-weight: var(--font-medium);
+	--text-caption-leading: 1.4;
+	--text-caption-tracking: 0.06em;
+	--text-caption-case: uppercase;
+}

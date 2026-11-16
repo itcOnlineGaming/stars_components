@@ -1,0 +1,97 @@
+.sr-only,
+.visually-hidden {
+	position: absolute;
+	width: var(--border-width-1);
+	height: var(--border-width-1);
+	padding: var(--spacing-0);
+	/* stylelint-disable-next-line declaration-property-value-disallowed-list */
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+/*
+ * A data grid wider than a phone scrolls inside its own region, never the page, with its
+ * first column in view (issue 272, the designer's decision 4):
+ *
+ *   <div class="table-scroll" role="region" aria-label="Marks by week" tabindex="0">
+ *     <table>…</table>
+ *   </div>
+ *
+ * tabindex lets the keyboard scroll it; the label names it for a screen reader.
+ */
+.table-scroll {
+	max-width: 100%;
+	overflow-x: auto;
+}
+
+.table-scroll:focus-visible {
+	outline: var(--border-width-2) solid var(--color-focus);
+	outline-offset: var(--border-width-2);
+}
+
+.table-scroll > table :is(th, td):first-child {
+	position: sticky;
+	left: 0;
+	z-index: var(--layer-raised);
+	background: var(--color-surface-raised);
+}
+
+/*
+ * A list of records (users, groups, exercises) stacks as cards below 640px: each row a
+ * card, each cell a line with its column's name before it, from data-label. A cell with
+ * no data-label (a row's actions, or its title) takes the whole line.
+ *
+ *   <table class="table-stack">…<td data-label="Email">…</td>…</table>
+ *
+ * The roles keep it a table for a screen reader once the rows are no longer laid out
+ * as one.
+ */
+@media (width < 640px) {
+	.table-stack,
+	.table-stack tbody,
+	.table-stack tbody tr,
+	.table-stack td,
+	.table-stack tbody th {
+		display: block;
+	}
+
+	.table-stack thead {
+		position: absolute;
+		width: var(--border-width-1);
+		height: var(--border-width-1);
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+	}
+
+	/* Only the body's rows: the header row, hidden here, keeps its own colours. */
+	.table-stack tbody tr {
+		margin-bottom: var(--spacing-3);
+		padding: var(--spacing-3);
+		border: var(--border-width-1) solid var(--color-border);
+		border-radius: var(--radius-lg);
+		background: var(--color-surface-raised);
+	}
+
+	.table-stack td,
+	.table-stack tbody th {
+		padding: var(--spacing-1) var(--spacing-0);
+		border: 0;
+		text-align: start;
+	}
+
+	.table-stack td[data-label] {
+		display: grid;
+		grid-template-columns: minmax(10ch, 35%) 1fr;
+		gap: var(--spacing-2);
+	}
+
+	.table-stack td[data-label]::before {
+		content: attr(data-label);
+		color: var(--color-text-muted);
+		font-weight: var(--font-semibold);
+	}
+}

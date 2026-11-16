@@ -1,0 +1,10 @@
+/* Generated from tokens.json — do not edit */
+
+:root {
+	--layer-base: 0;
+	--layer-raised: 1;
+	--layer-sticky: 100;
+	--layer-dropdown: 1000;
+	--layer-overlay: 2000;
+	--layer-toast: 3000;
+}

@@ -68,6 +68,14 @@ function dueDateSuffix(dueAt, isComplete) {
 	return ` · Due ${formatted}`;
 }
 
+// What a learner can do with an Understanding check step, from its progress details.
+const UNDERSTANDING_CHECK_TAGS = {
+	not_submitted: 'Submit your work first',
+	waiting: 'Waiting for your teacher',
+	ready: 'Questions ready',
+	answered: 'Answered'
+};
+
 export function journeyStepSummary(step, progress) {
 	const config = step.config || {};
 	if (step.step_kind === 'practice_plan' && progress) {
@@ -95,6 +103,15 @@ export function journeyStepSummary(step, progress) {
 
 	if (step.step_kind === 'read_reviews' && progress?.details?.unseen_reviews > 0) {
 		return newReviewsText(progress.details.unseen_reviews);
+	}
+
+	if (step.step_kind === 'understanding_check') {
+		const uc = progress?.details?.uc_state;
+		if (uc) return UNDERSTANDING_CHECK_TAGS[uc] || 'Understanding check';
+		if (isLearner) return 'Understanding check';
+		const kind = config.check_type === 'practice' ? 'Practice' : 'Lab test';
+		const work = config.brief_title || config.checks_step_title;
+		return work ? `${kind} · ${work}` : kind;
 	}
 
 	if (step.step_kind === 'milestone') {

@@ -36,6 +36,19 @@ export function practiceHref(skill, base) {
 	return `${base}/practise-exercises/?skills=${encodeURIComponent(skill)}`;
 }
 
+/**
+ * Exemplar practice for the given skills: the practice entry screen, which checks how
+ * many exemplars are available and starts a fresh set. A validated journey return
+ * link is kept so the learner can still get back to their journey.
+ */
+export function exemplarPracticeHref(skillIds, base, returnHref = null) {
+	const query = new URLSearchParams();
+	if (skillIds?.length) query.set('skill_ids', skillIds.join(','));
+	if (returnHref) query.set('return', returnHref);
+	const search = query.toString();
+	return `${base}/practise-exemplars/${search ? `?${search}` : ''}`;
+}
+
 /** Only a local Journey V2 path can supply a return target or journey ID. */
 export function journeyReturn(value, base) {
 	if (!value || !value.startsWith(`${base}/journeys/v2/`)) return null;

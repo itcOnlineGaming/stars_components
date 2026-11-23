@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { Button } from '$ui/components';
+	import { Link2 } from '@lucide/svelte';
+	import { ICON_SIZE } from '$ui/icons.js';
 
 	let {
 		steps = [],
@@ -115,8 +117,21 @@
 		ai_evaluation: '🤖',
 		revision_plan: '📝',
 		reflection: '💬',
+		understanding_check: '🧠',
 		scaffold: '🧩'
 	};
+
+	// A step's prerequisite, as the caller sets it in step.requires ({title}) - the
+	// learner page sets it for teachers only, who see every step unlocked.
+	function requiresText(step: any): string {
+		return step.requires ? `Students must complete "${step.requires.title}" first` : '';
+	}
+
+	function nodeTooltip(step: any): string {
+		if (step.locked) return `${step.title}\nLocked: complete "${step.locked_by?.title}" first`;
+		const requires = requiresText(step);
+		return `${step.title}\n${summary(step)}${requires ? '\n' + requires : ''}`;
+	}
 
 	function nodeIcon(step: any): string {
 		if (step.details?.plan_status?.state === 'off_track') return '⚠';
@@ -173,9 +188,9 @@
 				class="node node-{nodeVariant(step)}"
 				class:node-done={step.status === 'completed'}
 				class:node-locked={step.locked}
-				class:node-attention={step.step_kind === 'read_reviews' &&
-					!onRemove &&
-					step.status === 'in_progress'}
+				class:node-attention={!onRemove &&
+					((step.step_kind === 'read_reviews' && step.status === 'in_progress') ||
+						(step.step_kind === 'understanding_check' && step.details?.uc_state === 'ready'))}
 				class:node-off-track={step.details?.plan_status?.state === 'off_track'}
 				role="group"
 				draggable={onReorder ? 'true' : 'false'}
@@ -192,9 +207,7 @@
 					class="node-body"
 					onclick={() => onActivate(step)}
 					aria-disabled={step.locked ? 'true' : undefined}
-					title={step.locked
-						? `${step.title}\nLocked: complete "${step.locked_by?.title}" first`
-						: `${step.title}\n${summary(step)}`}
+					title={nodeTooltip(step)}
 				>
 					{#if step.step_kind === 'milestone' && milestoneProgress(step)}
 						{@const mp = milestoneProgress(step)}
@@ -248,6 +261,11 @@
 							{/if}
 							{#if step.locked}
 								<span class="node-lock-badge" aria-hidden="true">🔒</span>
+							{:else if step.requires}
+								<span class="node-requires-badge" title={requiresText(step)}>
+									<Link2 size={ICON_SIZE.xs} aria-hidden="true" />
+									<span class="visually-hidden">{requiresText(step)}</span>
+								</span>
 							{/if}
 						</span>
 					{:else}
@@ -258,6 +276,11 @@
 							{/if}
 							{#if step.locked}
 								<span class="node-lock-badge" aria-hidden="true">🔒</span>
+							{:else if step.requires}
+								<span class="node-requires-badge" title={requiresText(step)}>
+									<Link2 size={ICON_SIZE.xs} aria-hidden="true" />
+									<span class="visually-hidden">{requiresText(step)}</span>
+								</span>
 							{/if}
 							{#if step.step_kind === 'read_reviews' && step.details?.unseen_reviews > 0}
 								<span class="node-new-badge">
@@ -461,6 +484,22 @@
 		right: -4px;
 		font-size: var(--text-sm);
 		line-height: 1;
+	}
+
+	/* Teacher view: this step waits on another for students (the tooltip names it). */
+	.node-requires-badge {
+		position: absolute;
+		bottom: calc(-1 * var(--spacing-1));
+		right: calc(-1 * var(--spacing-1));
+		width: var(--size-icon-sm);
+		height: var(--size-icon-sm);
+		border-radius: var(--radius-full);
+		background: var(--color-surface-raised);
+		color: var(--color-text-muted);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: var(--shadow-sm);
 	}
 
 	/* Segmented donut-ring milestone icon: one arc per requirement, so the shape itself

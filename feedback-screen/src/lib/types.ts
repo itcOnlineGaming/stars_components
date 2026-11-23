@@ -66,6 +66,12 @@ export interface Exemplar extends Artefact {
 	owner_id?: number | null;
 	// Who students see credited, or null for an exemplar from before consent.
 	credits?: { author: string | null; reviewer: string | null } | null;
+	// What the work answers, written on an exemplar made without a brief (#312).
+	task?: string | null;
+	// Whether it was made from a brief (its checklist has the brief's sections).
+	has_brief?: boolean;
+	// Made directly by a teacher: their own work, so nobody was asked for consent.
+	made_directly?: boolean;
 }
 
 export type NewArtefact = Partial<
@@ -140,7 +146,10 @@ export const buildExemplar = (exemplarData: any): Exemplar => {
 		skills: exemplarData.skills,
 		status: exemplarData.status ?? null,
 		owner_id: exemplarData.owner_id ?? null,
-		credits: exemplarData.credits ?? null
+		credits: exemplarData.credits ?? null,
+		task: exemplarData.task ?? null,
+		has_brief: exemplarData.has_brief ?? true,
+		made_directly: exemplarData.made_directly ?? false
 	};
 };
 

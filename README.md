@@ -31,7 +31,9 @@ All three follow the same pattern; each app's README says what is in it.
 - `src/lib/` and `ui/`: the Stars originals, unchanged. `ui/` is the Stars design system:
   `ui/tokens/tokens.json` holds every design token, and the CSS in `ui/tokens/` is
   generated from it. Stars styles use these tokens (`var(--spacing-4)`,
-  `var(--color-text-muted)`) rather than fixed colours and sizes.
+  `var(--color-text-muted)`) rather than fixed colours and sizes. `ui/components/` has
+  every shared component (`Button`, `Card`, `Input`, `Modal`, `Typography` and the rest),
+  imported from `$ui/components`.
 - `src/routes/`: the pages. `/` shows the screen as it is in Stars.
 - `src/App.svelte`: what the Stars page does around the component.
 - `src/mock/`: stand-ins for the server and the signed-in learner, and the sample data.

@@ -68,8 +68,11 @@ Stars without touching your version.
 
 - **`src/lib/` and `ui/`**: copies of the Stars originals: the component, the code it
   uses, and the Stars design system (the complete design tokens in
-  `ui/tokens/tokens.json`, the CSS generated from them, base styles and the shared
-  `Button`). They are unchanged, so the component looks and behaves as it does in Stars.
+  `ui/tokens/tokens.json`, the CSS generated from them, base styles and every shared
+  component). They are unchanged, so the component looks and behaves as it does in Stars.
+  A version of your own can use any of the shared components, as Stars does:
+  `import { Button, Card, Input, Modal } from '$ui/components';`
+  (`ui/components/index.js` lists them all).
 - **`src/routes/`**: the pages, as in any SvelteKit app. `+page.svelte` is the screen at
   `/`, and `+layout.svelte` loads the Stars global styles for every page.
 - **`src/App.svelte`** (and the other files directly in `src/`): what the Stars page does

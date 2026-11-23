@@ -32,9 +32,11 @@ All three follow the same pattern; each app's README says what is in it.
   `ui/tokens/tokens.json` holds every design token, and the CSS in `ui/tokens/` is
   generated from it. Stars styles use these tokens (`var(--spacing-4)`,
   `var(--color-text-muted)`) rather than fixed colours and sizes.
+- `src/routes/`: the pages. `/` shows the screen as it is in Stars.
 - `src/App.svelte`: what the Stars page does around the component.
-- `src/mock/`: stand-ins for the server, the signed-in learner and SvelteKit, and the
-  sample data.
+- `src/mock/`: stand-ins for the server and the signed-in learner, and the sample data.
 
-The apps use plain [Vite](https://vite.dev) and [Svelte 5](https://svelte.dev), not
-SvelteKit, so there is no routing or server to set up.
+The apps are [SvelteKit](https://svelte.dev/docs/kit) apps with [Svelte 5](https://svelte.dev),
+like Stars, so a page is a folder in `src/routes/`: each app's README shows how to add a
+version of your own at `/b` beside the Stars one at `/`. They run in the browser only, so
+there is no server to set up.

@@ -36,18 +36,49 @@ The exemplars and exercises are in `src/mock/practice.js`, and the marking in
 `src/mock/api.js`. The "Fill Randomly (localhost only)" button under the checklist is a
 Stars test helper that appears on any localhost address.
 
+## Making a version of your own
+
+The app is SvelteKit, like Stars, so each folder in `src/routes/` is a page. To try a
+change next to the Stars version:
+
+1. Copy the component you want to change and change the copy, e.g.
+   `src/lib/components/ArtefactReview.svelte` to `src/lib/components/ArtefactReviewB.svelte`.
+2. Copy each file that uses it, up to `src/App.svelte`, and point each copy at the B
+   version below it: here `src/ExemplarPractice.svelte` to `src/ExemplarPracticeB.svelte`
+   (importing `ArtefactReviewB`) and `src/App.svelte` to `src/AppB.svelte` (importing
+   `ExemplarPracticeB`).
+3. Add `src/routes/b/+page.svelte`:
+
+   ```svelte
+   <script>
+   	import AppB from '../../AppB.svelte';
+   </script>
+
+   <AppB />
+   ```
+
+4. Open http://localhost:5173/b. The Stars version stays at `/`; a version C would be
+   `src/routes/c/+page.svelte`.
+
+Add new files rather than changing the Stars copies in `src/lib/` and `ui/`, so `/` keeps
+showing the screen as it is in Stars, and those copies can be brought up to date from
+Stars without touching your version.
+
 ## What is in this folder
 
 - **`src/lib/` and `ui/`**: copies of the Stars originals: the component, the code it
   uses, and the Stars design system (the complete design tokens in
   `ui/tokens/tokens.json`, the CSS generated from them, base styles and the shared
   `Button`). They are unchanged, so the component looks and behaves as it does in Stars.
+- **`src/routes/`**: the pages, as in any SvelteKit app. `+page.svelte` is the screen at
+  `/`, and `+layout.svelte` loads the Stars global styles for every page.
 - **`src/App.svelte`** (and the other files directly in `src/`): what the Stars page does
   around the component, with the parts that are not about this screen left out. The top
   of each file says what it leaves out.
 - **`src/mock/`**: stand-ins for what the component needs from the rest of Stars: the
-  server (`fetch.js`, which answers from the sample data in `api.js`), the signed-in
-  learner, and SvelteKit's `$app/paths` and `$app/stores`. `vite.config.js` points the
-  component's imports at these. The scenario bar at the top of the page and the
-  **API calls** panel at the bottom are part of the mockup, not of Stars: the panel shows
-  each request the component makes and what it sends.
+  server (`fetch.js`, which answers from the sample data in `api.js`) and a Stars package
+  (`admin-exercises.js`). `svelte.config.js` points the component's imports at these; a
+  `$lib` import always reads from `src/lib/`, so `src/lib/fetch.js` is the one file there
+  that is not from Stars: it passes the import on to `src/mock/fetch.js`. The scenario bar
+  at the top of the page and the **API calls** panel at the bottom are part of the mockup,
+  not of Stars: the panel shows each request the component makes and what it sends.
